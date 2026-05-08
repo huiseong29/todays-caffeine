@@ -105,7 +105,7 @@ DRINKS = [
     {
         "id": 11,
         "name": "녹차",
-        "brand": "코카콜라",
+        "brand": "동서",
         "category": "차/기타",
         "volume_ml": 350,
         "caffeine_per_100ml": 5,
