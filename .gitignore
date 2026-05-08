@@ -11,4 +11,5 @@ frontend/dist/
 # Local files
 .env
 .env.*
+!frontend/.env.example
 .reference-thumbs-up/
