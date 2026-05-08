@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$(^qs^t$(#(6dk%za(niz$qu2q0_5jy+kj)=r2gwvod_s)10%z'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-$(^qs^t$(#(6dk%za(niz$qu2q0_5jy+kj)=r2gwvod_s)10%z')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 
 # Application definition
@@ -119,4 +119,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-CORS_ALLOW_ALL_ORIGINS = True
+#로컬(DEBUG=True)에서는 모든 출처 허용, 배포(DEBUG=False)에서는 환경변수로 지정된 출처만 허용
+CORS_ALLOW_ALL_ORIGINS = DEBUG
+
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',') if not DEBUG else []
