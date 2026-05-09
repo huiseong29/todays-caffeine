@@ -10,6 +10,7 @@ DRINKS = [
         "caffeine_per_100ml": 25,
         "price": 1500,
         "recommend_for": ["벼락치기", "졸릴 때"],
+        "taste": ["달달한 맛"],
     },
     {
         "id": 2,
@@ -20,6 +21,7 @@ DRINKS = [
         "caffeine_per_100ml": 28,
         "price": 2300,
         "recommend_for": ["벼락치기", "졸릴 때", "장시간 공부"],
+        "taste": ["달달한 맛"],
     },
     {
         "id": 3,
@@ -30,6 +32,7 @@ DRINKS = [
         "caffeine_per_100ml": 24,
         "price": 1500,
         "recommend_for": ["졸릴 때", "부담없이"],
+        "taste": ["달달한 맛"],
     },
     {
         "id": 4,
@@ -40,6 +43,7 @@ DRINKS = [
         "caffeine_per_100ml": 28,
         "price": 2300,
         "recommend_for": ["벼락치기", "졸릴 때"],
+        "taste": ["달달한 맛"],
     },
     {
         "id": 5,
@@ -50,6 +54,7 @@ DRINKS = [
         "caffeine_per_100ml": 32,
         "price": 3200,
         "recommend_for": ["부담없이", "기분전환"],
+        "taste": ["달달한 맛"],
     },
     {
         "id": 6,
@@ -60,6 +65,7 @@ DRINKS = [
         "caffeine_per_100ml": 34,
         "price": 2000,
         "recommend_for": ["장시간 공부", "부담없이", "기분전환"],
+        "taste": ["쓴 맛", "산미"],
     },
     {
         "id": 7,
@@ -70,6 +76,7 @@ DRINKS = [
         "caffeine_per_100ml": 20,
         "price": 1500,
         "recommend_for": ["부담없이", "기분전환"],
+        "taste": ["달달한 맛"],
     },
     {
         "id": 8,
@@ -80,6 +87,7 @@ DRINKS = [
         "caffeine_per_100ml": 22,
         "price": 1200,
         "recommend_for": ["부담없이", "벼락치기"],
+        "taste": ["쓴 맛"],
     },
     {
         "id": 9,
@@ -90,6 +98,7 @@ DRINKS = [
         "caffeine_per_100ml": 12,
         "price": 1500,
         "recommend_for": ["부담없이", "기분전환"],
+        "taste": ["달달한 맛"],
     },
     {
         "id": 10,
@@ -100,8 +109,9 @@ DRINKS = [
         "caffeine_per_100ml": 3,
         "price": 1800,
         "recommend_for": ["장시간 공부", "부담없이", "기분전환"],
+        "taste": ["달달한 맛", "산미"],
     },
-   
+
     {
         "id": 11,
         "name": "녹차",
@@ -111,6 +121,7 @@ DRINKS = [
         "caffeine_per_100ml": 5,
         "price": 2000,
         "recommend_for": ["부담없이"],
+        "taste": ["쓴 맛"],
     },
 ]
 
@@ -125,13 +136,14 @@ def caffeine_list(request):
     drinks = [add_caffeine_total(d) for d in DRINKS]
 
     # ?search= 특정 키워드 검색
-    search = request.GET.get("search", "").strip()
+    search = request.GET.get("search", "").strip().lower()
     if search:
         drinks = [
             d for d in drinks
-            if search in d["name"]
-            or search in d["brand"]
-            or any(search in tag for tag in d["recommend_for"])
+            if search in d["name"].lower()
+            or search in d["brand"].lower()
+            or any(search in tag.lower() for tag in d["recommend_for"])
+            or any(search in t.lower() for t in d["taste"])
         ]
 
     # ?category=카테고리 필터
