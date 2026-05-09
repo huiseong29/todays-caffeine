@@ -9,8 +9,8 @@ DRINKS = [
         "volume_ml": 250,
         "caffeine_per_100ml": 25,
         "price": 1500,
-        "recommend_for": ["벼락치기", "졸릴 때"],
-        "taste": ["달달한 맛"],
+        "recommend_tags": ["벼락치기", "졸릴 때"],
+        "flavor_tags": ["달달한 맛"],
     },
     {
         "id": 2,
@@ -20,8 +20,8 @@ DRINKS = [
         "volume_ml": 355,
         "caffeine_per_100ml": 28,
         "price": 2300,
-        "recommend_for": ["벼락치기", "졸릴 때", "장시간 공부"],
-        "taste": ["달달한 맛"],
+        "recommend_tags": ["벼락치기", "졸릴 때", "장시간 공부"],
+        "flavor_tags": ["달달한 맛"],
     },
     {
         "id": 3,
@@ -31,8 +31,8 @@ DRINKS = [
         "volume_ml": 250,
         "caffeine_per_100ml": 24,
         "price": 1500,
-        "recommend_for": ["졸릴 때", "부담없이"],
-        "taste": ["달달한 맛"],
+        "recommend_tags": ["졸릴 때", "부담없이"],
+        "flavor_tags": ["달달한 맛"],
     },
     {
         "id": 4,
@@ -42,8 +42,8 @@ DRINKS = [
         "volume_ml": 355,
         "caffeine_per_100ml": 28,
         "price": 2300,
-        "recommend_for": ["벼락치기", "졸릴 때"],
-        "taste": ["달달한 맛"],
+        "recommend_tags": ["벼락치기", "졸릴 때"],
+        "flavor_tags": ["달달한 맛"],
     },
     {
         "id": 5,
@@ -53,8 +53,8 @@ DRINKS = [
         "volume_ml": 591,
         "caffeine_per_100ml": 32,
         "price": 3200,
-        "recommend_for": ["부담없이", "기분전환"],
-        "taste": ["달달한 맛"],
+        "recommend_tags": ["부담없이", "기분전환"],
+        "flavor_tags": ["달달한 맛"],
     },
     {
         "id": 6,
@@ -64,8 +64,8 @@ DRINKS = [
         "volume_ml": 710,
         "caffeine_per_100ml": 34,
         "price": 2000,
-        "recommend_for": ["장시간 공부", "부담없이", "기분전환"],
-        "taste": ["쓴 맛", "산미"],
+        "recommend_tags": ["장시간 공부", "부담없이", "기분전환"],
+        "flavor_tags": ["쓴 맛", "산미"],
     },
     {
         "id": 7,
@@ -75,8 +75,8 @@ DRINKS = [
         "volume_ml": 355,
         "caffeine_per_100ml": 20,
         "price": 1500,
-        "recommend_for": ["부담없이", "기분전환"],
-        "taste": ["달달한 맛"],
+        "recommend_tags": ["부담없이", "기분전환"],
+        "flavor_tags": ["달달한 맛"],
     },
     {
         "id": 8,
@@ -86,8 +86,8 @@ DRINKS = [
         "volume_ml": 175,
         "caffeine_per_100ml": 22,
         "price": 1200,
-        "recommend_for": ["부담없이", "벼락치기"],
-        "taste": ["쓴 맛"],
+        "recommend_tags": ["부담없이", "벼락치기"],
+        "flavor_tags": ["쓴 맛"],
     },
     {
         "id": 9,
@@ -97,8 +97,8 @@ DRINKS = [
         "volume_ml": 355,
         "caffeine_per_100ml": 12,
         "price": 1500,
-        "recommend_for": ["부담없이", "기분전환"],
-        "taste": ["달달한 맛"],
+        "recommend_tags": ["부담없이", "기분전환"],
+        "flavor_tags": ["달달한 맛"],
     },
     {
         "id": 10,
@@ -108,8 +108,8 @@ DRINKS = [
         "volume_ml": 500,
         "caffeine_per_100ml": 3,
         "price": 1800,
-        "recommend_for": ["장시간 공부", "부담없이", "기분전환"],
-        "taste": ["달달한 맛", "산미"],
+        "recommend_tags": ["장시간 공부", "부담없이", "기분전환"],
+        "flavor_tags": ["달달한 맛", "산미"],
     },
 
     {
@@ -120,8 +120,8 @@ DRINKS = [
         "volume_ml": 350,
         "caffeine_per_100ml": 5,
         "price": 2000,
-        "recommend_for": ["부담없이"],
-        "taste": ["쓴 맛"],
+        "recommend_tags": ["부담없이"],
+        "flavor_tags": ["쓴 맛"],
     },
 ]
 
@@ -142,8 +142,8 @@ def caffeine_list(request):
             d for d in drinks
             if search in d["name"].lower()
             or search in d["brand"].lower()
-            or any(search in tag.lower() for tag in d["recommend_for"])
-            or any(search in t.lower() for t in d["taste"])
+            or any(search in tag.lower() for tag in d["recommend_tags"])
+            or any(search in t.lower() for t in d["flavor_tags"])
         ]
 
     # ?category=카테고리 필터
@@ -164,4 +164,4 @@ def caffeine_list(request):
     if sort in sort_options:
         drinks = sorted(drinks, key=sort_options[sort])
 
-    return JsonResponse({"count": len(drinks), "drinks": drinks}, json_dumps_params={"ensure_ascii": False})
+    return JsonResponse(drinks, safe=False, json_dumps_params={"ensure_ascii": False})
