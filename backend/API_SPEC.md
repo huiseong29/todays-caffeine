@@ -22,7 +22,7 @@
 
 | 파라미터 | 타입 | 필수 | 설명 |
 |---|---|---|---|
-| `search` | string | 선택 | 음료명, 브랜드, 추천 상황으로 키워드 검색 |
+| `search` | string | 선택 | 음료명, 브랜드, 맛 태그, 추천 상황으로 키워드 검색 |
 | `category` | string | 선택 | 카테고리 필터 (아래 허용값 참고) |
 | `sort` | string | 선택 | 정렬 기준 (아래 허용값 참고) |
 
@@ -50,30 +50,26 @@
 ## 응답 형식
 
 ```json
-{
-  "count": 11,
-  "drinks": [
-    {
-      "id": 1,
-      "name": "레드불 오리지날",
-      "brand": "Red Bull",
-      "category": "에너지드링크",
-      "volume_ml": 250,
-      "caffeine_per_100ml": 25,
-      "price": 1500,
-      "recommend_for": ["벼락치기", "졸릴 때"],
-      "caffeine_total": 62
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "name": "레드불 오리지날",
+    "brand": "Red Bull",
+    "category": "에너지드링크",
+    "volume_ml": 250,
+    "caffeine_per_100ml": 25,
+    "price": 1500,
+    "recommend_tags": ["벼락치기", "졸릴 때"],
+    "flavor_tags": ["달달한 맛"],
+    "caffeine_total": 62
+  }
+]
 ```
 
 ### 응답 필드 설명
 
 | 필드 | 타입 | 설명 |
 |---|---|---|
-| `count` | number | 반환된 음료 수 |
-| `drinks` | array | 음료 목록 |
 | `id` | number | 음료 고유 번호 |
 | `name` | string | 음료명 |
 | `brand` | string | 브랜드명 |
@@ -81,7 +77,8 @@
 | `volume_ml` | number | 총 용량 (ml) |
 | `caffeine_per_100ml` | number | 100ml당 카페인 함량 (mg) |
 | `price` | number | 가격 (원) |
-| `recommend_for` | array | 추천 상황 태그 |
+| `recommend_tags` | array | 추천 상황 태그 |
+| `flavor_tags` | array | 맛 태그 (달달한 맛, 쓴 맛, 산미) |
 | `caffeine_total` | number | 총 카페인 함량 (mg), 서버에서 자동 계산 |
 
 ---
@@ -131,8 +128,5 @@ GET /api/caffeine/?search=벼락치기&sort=caffeine_high
 별도의 에러 코드는 없으며, 조건에 맞는 결과가 없을 경우 빈 배열을 반환합니다.
 
 ```json
-{
-  "count": 0,
-  "drinks": []
-}
+[]
 ```
