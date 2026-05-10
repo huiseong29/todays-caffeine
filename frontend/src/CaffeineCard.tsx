@@ -1,19 +1,6 @@
-import React from "react";
+import type { CaffeineDrink } from "./types/caffeine";
 
-interface CaffeineItem {
-  id: number;
-  name: string;
-  brand: string;
-  category: string;
-  subcategory: string;
-  caffeine_per_100ml: number;
-  volume_ml: number;
-  price: number;
-  flavor_tags: string[];
-  recommend_tags: string[];
-}
-
-interface Props { item: CaffeineItem; }
+interface Props { item: CaffeineDrink; }
 
 const CATEGORY_COLOR: Record<string, string> = {
   "커피": "#6f4e37",
@@ -56,7 +43,7 @@ export default function CaffeineCard({ item }: Props) {
           <span style={{
             background: "#f0f0f0", color: "#666",
             fontSize: "11px", borderRadius: "4px", padding: "2px 7px",
-          }}>{item.subcategory}</span>
+          }}>{item.subcategory ?? "기타"}</span>
         </div>
 
         <p style={{ margin: "0 0 2px", fontSize: "16px", fontWeight: 700, color: "#111" }}>{item.name}</p>

@@ -1,9 +1,7 @@
 import React from "react";
+import type { CaffeineSort } from "./types/caffeine";
 
-export type SortKey =
-  | "caffeine_total_desc" | "caffeine_total_asc"
-  | "price_asc" | "price_desc"
-  | "caffeine_density_desc" | "caffeine_density_asc";
+export type SortKey = CaffeineSort;
 
 interface Props {
   search: string;
@@ -25,12 +23,12 @@ const SUBCATEGORY_MAP: Record<string, string[]> = {
 };
 
 const SORT_OPTIONS: { label: string; value: SortKey }[] = [
-  { label: "카페인 높은순 (총량)",        value: "caffeine_total_desc" },
-  { label: "카페인 낮은순 (총량)",        value: "caffeine_total_asc" },
-  { label: "카페인 밀도 높은순 (100ml)", value: "caffeine_density_desc" },
-  { label: "카페인 밀도 낮은순 (100ml)", value: "caffeine_density_asc" },
-  { label: "가격 낮은순",                value: "price_asc" },
-  { label: "가격 높은순",                value: "price_desc" },
+  { label: "카페인 높은순 (총량)",        value: "caffeine_high" },
+  { label: "카페인 낮은순 (총량)",        value: "caffeine_low" },
+  { label: "카페인 밀도 높은순 (100ml)", value: "density_high" },
+  { label: "카페인 밀도 낮은순 (100ml)", value: "density_low" },
+  { label: "가격 낮은순",                value: "price_low" },
+  { label: "가격 높은순",                value: "price_high" },
 ];
 
 const selectStyle: React.CSSProperties = {

@@ -38,7 +38,7 @@ export async function fetchCaffeineDrinks(
 
   if (!response.ok) {
     throw new Error(
-      `카페인 음료 목록을 불러오지 못했습니다.: ${response.status}`,
+      `카페인 음료 목록을 불러오지 못했습니다: ${response.status}`,
     );
   }
 
