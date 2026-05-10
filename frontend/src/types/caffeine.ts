@@ -18,8 +18,8 @@ export type CaffeineDrink = {
   caffeine_per_100ml: number
   caffeine_total: number
   price: number
-  flavors?: string[]
-  recommend_for: string[]
+  flavor_tags: string[]
+  recommend_tags: string[]
 }
 
 export type CaffeineQuery = {
@@ -28,7 +28,4 @@ export type CaffeineQuery = {
   sort?: CaffeineSort | ''
 }
 
-export type CaffeineResponse = {
-  count: number
-  drinks: CaffeineDrink[]
-}
+export type CaffeineResponse = CaffeineDrink[]
